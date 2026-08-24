@@ -43,4 +43,4 @@ Then open `http://localhost:8000` in your browser.
 
 ## License
 
-UNLICENSED — proprietary and private.
+[GPL-3.0](LICENSE)

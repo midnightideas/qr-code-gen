@@ -1,0 +1,21 @@
+{
+    "author": "kafilio",
+    "bugs": {
+        "url": "https://github.com/midnightideas/qr-code-gen/issues"
+    },
+    "description": "",
+    "homepage": "https://github.com/midnightideas/qr-code-gen#readme",
+    "license": "UNLICENSED",
+    "main": "index.js",
+    "name": "qr-code-gen",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/midnightideas/qr-code-gen.git"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "type": "commonjs",
+    "version": "1.0.0"
+}

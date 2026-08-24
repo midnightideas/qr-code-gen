@@ -1,0 +1,36 @@
+{
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "Anthropic.claude-code",
+                "GitHub.copilot-chat",
+                "mhutchie.git-graph",
+                "ue.alphabetical-sorter"
+            ],
+            "settings": {
+                "remote.autoForwardPorts": false,
+                "terminal.integrated.profiles.linux": {
+                    "Claude Code": {
+                        "args": [
+                            "-c",
+                            "command -v agent-env >/dev/null 2>&1 && exec agent-env claude || exec claude"
+                        ],
+                        "icon": "claude",
+                        "path": "/bin/sh"
+                    },
+                    "GitHub Copilot CLI": null
+                }
+            }
+        }
+    },
+    "features": {
+        "ghcr.io/tailscale/codespace/tailscale": {}
+    },
+    "postStartCommand": "/usr/local/bin/postStartCommand.sh",
+    "runArgs": [
+        "--env-file=${localEnv:HOME}/.devcontainer.env"
+    ]
+}

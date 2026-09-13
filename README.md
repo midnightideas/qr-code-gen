@@ -1,3 +1,5 @@
+[![Open in DevPod!](https://devpod.sh/assets/open-in-devpod.svg)](https://devpod.sh/open#https://github.com/midnightideas/qr-code-gen)
+
 # QR Code Generator
 
 A simple, static QR code generator that runs entirely in the browser — no backend required. Built for GitHub Pages.

@@ -18,35 +18,12 @@ RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
   && echo >> /home/vscode/.bashrc \
   && echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)"' >> /home/vscode/.bashrc \
   && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv bash)" \
-  && /home/linuxbrew/.linuxbrew/bin/brew install docker docker-compose docker-buildx node wget curl jq gnupg git-secret socat yq gh 1password-cli claude-code php composer pandoc \
+  && /home/linuxbrew/.linuxbrew/bin/brew install 1password-cli betterleaks claude-code composer curl dbxcli docker docker-buildx docker-compose gh git-secret gnupg jq node pandoc php socat wget yq \
   && docker context create exit-au-oci --docker "host=ssh://docker@exit-au-oci" \
   && mkdir -p /home/vscode/.docker/cli-plugins \
   && ln -sf /home/linuxbrew/.linuxbrew/bin/docker-compose /home/vscode/.docker/cli-plugins/docker-compose \
   && ln -sf /home/linuxbrew/.linuxbrew/bin/docker-buildx /home/vscode/.docker/cli-plugins/docker-buildx
 USER root
-
-# dbxcli has no Homebrew formula — install the pinned release binary from
-# GitHub so bin/deploy works inside the container. Matches the pin used by
-# bin/refresh-dbxcli-token (v3.7.3). Pinned SHA256s are verified per-arch to
-# guard against a compromised release artifact.
-ARG DBXCLI_VERSION=3.7.3
-ARG DBXCLI_SHA256_AMD64=fee977ce4144174356cd7d1bae0b546aecad2570f14666bd44417e96af943484
-ARG DBXCLI_SHA256_ARM64=9d654da62a1ac10c9e32ee8f66fa6cc8d88ed29bc95555435a5ce4255eb4b96a
-RUN set -eux; \
-  arch="$(dpkg --print-architecture)"; \
-  case "$arch" in \
-    amd64) expected="${DBXCLI_SHA256_AMD64}" ;; \
-    arm64) expected="${DBXCLI_SHA256_ARM64}" ;; \
-    *) echo "Unsupported architecture for dbxcli: $arch" >&2; exit 1 ;; \
-  esac; \
-  curl -fsSL -o /tmp/dbxcli.tar.gz \
-    "https://github.com/dropbox/dbxcli/releases/download/v${DBXCLI_VERSION}/dbxcli_${DBXCLI_VERSION}_linux_${arch}.tar.gz"; \
-  echo "${expected}  /tmp/dbxcli.tar.gz" | sha256sum -c -; \
-  tar -xz -C /tmp --strip-components=1 \
-    -f /tmp/dbxcli.tar.gz "dbxcli_${DBXCLI_VERSION}_linux_${arch}/dbxcli"; \
-  install -m 0755 /tmp/dbxcli /usr/local/bin/dbxcli; \
-  rm -f /tmp/dbxcli /tmp/dbxcli.tar.gz; \
-  /usr/local/bin/dbxcli version
 
 RUN set -eux; \
   export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"; \
